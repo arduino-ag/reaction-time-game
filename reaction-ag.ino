@@ -2,29 +2,35 @@
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-#define LOOP while (true)
-
 #define LEDgr 2
 #define LEDro 3
 #define SPIELER_1 4
 #define SPIELER_2 5
 #define START_BUTTON 6
+#define RESET_PIN 7
+
 static unsigned long timer = 0;
 static int zufallwarten = 0;
 
+#define LOOP while (true)
+#define RESET digitalWrite(RESET_PIN, LOW)
+
 void setup()
 {
+    digitalWrite(RESET_PIN, HIGH);
+
     randomSeed(analogRead(0));
 
     lcd.init();
     lcd.backlight();
 
-    pinMode(2, OUTPUT);
-    pinMode(3, OUTPUT);
+    pinMode(LEDgr, OUTPUT);
+    pinMode(LEDro, OUTPUT);
+    pinMode(RESET_PIN, OUTPUT);
 
-    pinMode(4, INPUT);
-    pinMode(5, INPUT);
-    pinMode(6, INPUT);
+    pinMode(SPIELER_1, INPUT);
+    pinMode(SPIELER_2, INPUT);
+    pinMode(START_BUTTON, INPUT);
 
     while (digitalRead(START_BUTTON) == LOW)
     {
@@ -56,8 +62,11 @@ void loop()
             lcd.clear();
             lcd.println("RESET drücken!");
 
-            LOOP {}
+            delay(5000);
+
+            RESET;
         }
+
         if (digitalRead(SPIELER_2) == HIGH)
         {
             lcd.clear();
@@ -69,7 +78,9 @@ void loop()
             lcd.clear();
             lcd.println("RESET drücken!");
 
-            LOOP {}
+            delay(5000);
+
+            RESET;
         }
     }
 
@@ -84,8 +95,11 @@ void loop()
             lcd.println("Spieler A");
             lcd.println("gewinnt!");
 
-            LOOP {}
+            delay(5000);
+
+            RESET;
         }
+
         if (digitalRead(SPIELER_2) == HIGH)
         {
             lcd.clear();
@@ -93,7 +107,9 @@ void loop()
             lcd.println("Spieler B");
             lcd.println("gewinnt!");
 
-            LOOP {}
+            delay(5000);
+
+            RESET;
         }
     }
 }
