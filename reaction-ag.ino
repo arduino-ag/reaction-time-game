@@ -36,6 +36,7 @@ void setup()
     {
     }
 
+    lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Spiel beginnt!");
 
@@ -55,12 +56,14 @@ void loop()
         {
             lcd.clear();
             lcd.home();
-            lcd.println("Spieler A");
+            lcd.print("Spieler A");
+            lcd.setCursor(0, 1);
             lcd.print("hat verloren!");
             delay(5000);
 
             lcd.clear();
-            lcd.println("RESET drücken!");
+            lcd.home();
+            lcd.print("RESET drücken!");
 
             delay(5000);
 
@@ -71,12 +74,14 @@ void loop()
         {
             lcd.clear();
             lcd.home();
-            lcd.println("Spieler B");
-            lcd.println("hat verloren!");
+            lcd.print("Spieler B");
+            lcd.setCursor(0, 1);
+            lcd.print("hat verloren!");
             delay(5000);
 
+            lcd.home();
             lcd.clear();
-            lcd.println("RESET drücken!");
+            lcd.print("RESET drücken!");
 
             delay(5000);
 
@@ -92,8 +97,9 @@ void loop()
         {
             lcd.clear();
             lcd.home();
-            lcd.println("Spieler A");
-            lcd.println("gewinnt!");
+            lcd.print("Spieler A");
+            lcd.setCursor(0, 1);
+            lcd.print("gewinnt!");
 
             delay(5000);
 
@@ -104,8 +110,9 @@ void loop()
         {
             lcd.clear();
             lcd.home();
-            lcd.println("Spieler B");
-            lcd.println("gewinnt!");
+            lcd.print("Spieler B");
+            lcd.setCursor(0, 1);
+            lcd.print("gewinnt!");
 
             delay(5000);
 
